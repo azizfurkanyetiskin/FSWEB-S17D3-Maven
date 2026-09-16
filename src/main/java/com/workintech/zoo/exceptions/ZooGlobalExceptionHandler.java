@@ -14,19 +14,19 @@ public class ZooGlobalExceptionHandler {
     public ResponseEntity<ZooErrorResponse> handleException(ZooException exception) {
         log.error("ZooException occurred: {}", exception.getMessage());
         ZooErrorResponse errorResponse = new ZooErrorResponse(
+                exception.getHttpStatus().value(),
                 exception.getMessage(),
-                exception.getStatus().value(),
                 System.currentTimeMillis()
         );
-        return new ResponseEntity<>(errorResponse, exception.getStatus());
+        return new ResponseEntity<>(errorResponse, exception.getHttpStatus());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ZooErrorResponse> handleException(Exception exception) {
         log.error("Exception occurred: {}", exception.getMessage());
         ZooErrorResponse errorResponse = new ZooErrorResponse(
-                exception.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                exception.getMessage(),
                 System.currentTimeMillis()
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
