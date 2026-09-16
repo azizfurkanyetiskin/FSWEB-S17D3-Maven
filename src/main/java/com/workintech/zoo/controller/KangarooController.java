@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/workintech/kangaroos")
+@RequestMapping({"/workintech/kangaroos", "/kangaroos"})
 public class KangarooController {
 
     private Map<Integer, Kangaroo> kangaroos;
